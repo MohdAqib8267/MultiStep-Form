@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./MultiStepForm.css";
 
 const MultiStepForm = () => {
+    //states to handle dynamically data inside form
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -17,21 +18,25 @@ const MultiStepForm = () => {
   });
   const [errors, setErrors] = useState({});
 
+  //go to prev form
   const handlePrev = (e) => {
     e.preventDefault();
     setStep((prev) => prev - 1);
   };
 
+   //go to prev next
   const handleNext = (e) => {
     e.preventDefault();
     if (validateStep()) {
       setStep((prev) => prev + 1);
     }
   };
+  // submit data 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateStep()) {
       alert("Form Submit Successfully!")
+      console.log(formData);
     }
   };
 
@@ -51,6 +56,7 @@ const MultiStepForm = () => {
 
     const newErrors = {};
 
+    //handle input feild errors
     currentStepFields.forEach((field) => {
       switch (field) {
         case 'fullName':
@@ -118,6 +124,8 @@ const MultiStepForm = () => {
     <div className="multi-step-form">
       <h1>Multi Step Form</h1>
       <form action="">
+
+        {/* progress bar */}
         <div className="step-row">
           <div style={{ width: `${(step) * 33.3}%` }} id="progress"></div>
           <div className="step-col">Step 1</div>
@@ -126,6 +134,7 @@ const MultiStepForm = () => {
         </div>
 
         {step === 1 && (
+            // form 1
           <div className="form-container">
             <h2>Personal Information</h2>
             <input
@@ -156,6 +165,7 @@ const MultiStepForm = () => {
         )}
 
         {step === 2 && (
+            // form 2
           <div className="form-container">
             <h2>Address Information</h2>
             <input
@@ -198,6 +208,7 @@ const MultiStepForm = () => {
         )}
 
         {step === 3 && (
+            // form 3
           <div className="form-container">
             <h2>Account Setup</h2>
             <input
